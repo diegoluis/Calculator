@@ -1,0 +1,77 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "susy";
+
+//colors
+$screenColorBg: #012E3A;
+$numColorBg: #122125;
+$operationsColorBg: #0E5163;
+$textColor: #BCFDFF;
+$opTextColor: #F2F6F6;
+
+$susy:(
+columns:5,
+global-box-sizing: border-box
+);
+
+body{
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 100;
+  font-size: 3rem;
+  text-align: center;
+}
+.screen{
+   @include container;
+   color: $textColor;
+   background-color: $screenColorBg;
+   border-bottom: 1px solid $operationsColorBg;
+   padding: 2%;
+}
+.showOperations{
+  font-size: 2rem;
+  color: $opTextColor;
+  text-align: right;
+}
+.result{
+  font-size: 7rem;
+  text-align: right;
+  padding-top: 2%;
+}
+.wraper{
+  margin: 0 auto;
+  //@include container;
+}
+.controls{
+  background-color: $numColorBg;
+  color: $textColor;
+  overflow: auto;
+
+}
+.numpad{
+  @include gallery(2 of 8);
+  background-color: $numColorBg;
+  cursor: pointer;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  box-sizing: content-box;
+  &:hover:not(.empty) {
+        color: desaturate(darken($textColor, 10), 60);
+        background-color: lighten($numColorBg,5);
+    };
+  &:active:not(.empty){
+    background-color: lighten(saturate($numColorBg, 90), 20);
+    color: darken(saturate($textColor, 50), 80);
+  }
+}
+.empty{
+  cursor: default;
+}
+.operation{
+  color: $opTextColor;
+  background-color: $operationsColorBg;
+
+}
