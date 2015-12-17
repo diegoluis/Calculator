@@ -41,40 +41,24 @@ function readNumber(){
 $(".numpad").click(readNumber);
 // fire the different operations between numbers
 function operations(){
-  //if is the first time the operations is clicked
-  if(!firstSymbol){
-    firstSymbol=symbol;
-    secondSymbol="";
-    console.log(firstSymbol);
-  }
-  //if the firstNumber is empty
-  if(!firstNumber){
-    //store first value
-    firstNumber = inputNumber;
-    //clear the input
-    inputNumber = "";
-    console.log("first n is: " + firstNumber);
-  } else {
-    //if the firs number is full, fill the second number
-    secondNumber = inputNumber;
-    if(!result){
-      result = firstNumber;
-    }
-    //clear the input
-    inputNumber = "";
-    console.log("second n is: " + secondNumber +" firstSymbol" + firstSymbol + " secondSymbol " + symbol);
+  if(!firstNumber && !secondNumber){
+    firstNumber = Number(inputNumber);
+    firstSymbol = symbol;
+    inputNumber="";
+    console.log("first number " + firstNumber + " first symbol " + firstSymbol);
+  } else /*if(firstNumber && !secondNumber)*/{
+    secondNumber = Number(inputNumber);
+    console.log("secondNumber "+ secondNumber);
+    result = Number(firstNumber);
+    console.log("result as first Number "+ result);
     allOperations(firstSymbol);
-    if(firstSymbol && !secondSymbol){
-      secondSymbol = symbol;
-      //firstSymbol="";
-    } else if(firstSymbol && secondSymbol){
-      allOperations(secondSymbol);
-      firstSymbol= secondSymbol;
-      secondSymbol="";
-    }
+    console.log("result of operation " + result);
+    firstNumber = Number(result);
+    console.log("first number as result again "+ firstNumber);
+    firstSymbol = symbol;
+    inputNumber="";
   }
 
-  //console.log("the number is "+ inputNumber);
 }
 function allOperations(symbol){
   switch (symbol) {
