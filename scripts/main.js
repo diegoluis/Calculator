@@ -8,90 +8,110 @@ var secondNumber = "";
 var symbol = "";
 //first operation
 var firstSymbol = "";
-//second operation
-var secondSymbol = "";
 //result
 var result = "";
 //id in html of result
 var resultScreen = document.getElementById("resultScreen");
-//first number on html
-var firstN = document.getElementById("firstN");
-//symbol of operation on html
-var oper = document.getElementById("oper");
-//second number on html
-var secondN = document.getElementById("secondN");
+
 
 function readNumber(){
   //read the clicked number
   var clicked = this.textContent;
   //add the clicked number to the complete number converting it to string
   inputNumber = inputNumber + clicked.toString();
+  //write what is clicked to the screen
+  resultScreen.innerHTML = inputNumber;
   //console.log(inputNumber);
   //if empty space is clicked not add to number
   if ($(this).hasClass("empty")){
     inputNumber = inputNumber - clicked.toString();
+    resultScreen.innerHTML = inputNumber;
   } else if($(this).hasClass("operation")){
     symbol = this.textContent;
     //if click on operation don't add the operation symbol
     inputNumber = inputNumber.slice(0,inputNumber.length-1);
-    //console.log("operacion "+ symbol);
+    resultScreen.innerHTML = inputNumber;
+    if($(this).is('#kPercent')){
+      //percentage is a special case, that works with only one number
+      result = Number(inputNumber) / 100;
+      writeResult();
+    }
     operations();
+  } else if($(this).hasClass('delete')){
+    //clear the screen
+    inputNumber = "";
+    resultScreen.innerHTML = "&nbsp;";
+    //if is AC clear the variables
+    if($(this).is('#kAc')){
+      inputNumber = "";
+      firstNumber = "";
+      secondNumber = "";
+      result = "";
+      resultScreen.innerHTML = "&nbsp;";
+    }
   }
 }
 $(".numpad").click(readNumber);
 // fire the different operations between numbers
 function operations(){
+  //when clicking the first number
   if(!firstNumber && !secondNumber){
+    //fill the first number
     firstNumber = Number(inputNumber);
+    //store the operation
     firstSymbol = symbol;
+    //clear the input
     inputNumber="";
-    console.log("first number " + firstNumber + " first symbol " + firstSymbol);
-  } else /*if(firstNumber && !secondNumber)*/{
+  } else{
+    //in the rest of the occasions
+    //fill the second number
     secondNumber = Number(inputNumber);
-    console.log("secondNumber "+ secondNumber);
+    //the first number is the result
     result = Number(firstNumber);
-    console.log("result as first Number "+ result);
+    //execute the operation
     allOperations(firstSymbol);
-    console.log("result of operation " + result);
+    //update the first number
     firstNumber = Number(result);
-    console.log("first number as result again "+ firstNumber);
+    //store the operation
     firstSymbol = symbol;
+    //clear the input
     inputNumber="";
   }
 
 }
+//execute the operations according to the symbol selected
 function allOperations(symbol){
   switch (symbol) {
     case "+":
       result = Number(result) + Number(secondNumber);
       writeResult();
-      console.log("resultado es: "+ result);
       break;
     case "-":
       result = Number(result) - Number(secondNumber);
       writeResult();
-      console.log("resultado es: "+ result);
       break;
       case "x":
         result = Number(result) * Number(secondNumber);
         writeResult();
-        console.log("resultado es: "+ result);
         break;
       case "÷":
         result = Number(result) / Number(secondNumber);
         writeResult();
-        console.log("resultado es: "+ result);
+        break;  
+      case "%":
+        result = Number(result) / 100;
+        writeResult();
         break;
       case "=":
-        console.log("resultado es: "+ result);
         writeResult();
         break;
   }
 }
 
+//write the result to the html
 function writeResult(){
-  resultScreen.innerHTML = result;
+    resultScreen.innerHTML = result;
 }
-//guardar en memoria el primer operando y el signo de operacion
-//cuando se da otro signo de operacion se ejecuta la opearcion
-//cuando
+
+//falta porcentaje,
+//limitar numero de decimales
