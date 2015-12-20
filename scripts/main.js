@@ -97,7 +97,7 @@ function allOperations(symbol){
       case "÷":
         result = Number(result) / Number(secondNumber);
         writeResult();
-        break;  
+        break;
       case "%":
         result = Number(result) / 100;
         writeResult();
@@ -110,7 +110,9 @@ function allOperations(symbol){
 
 //write the result to the html
 function writeResult(){
+
     resultScreen.innerHTML = result;
+  
 }
 
 //falta porcentaje,

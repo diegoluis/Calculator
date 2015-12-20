@@ -53,8 +53,10 @@ body {
   font-family: 'Work Sans', sans-serif;
   font-weight: 100;
   font-size: 3rem;
-  text-align: center; }
+  text-align: center;
+  background: #011a21; }
 
+.wrapper
 .screen {
   max-width: 100%;
   margin-left: auto;
@@ -63,6 +65,7 @@ body {
   background-color: #012E3A;
   border-bottom: 1px solid #0E5163;
   padding: 2%; }
+  .wrapper
   .screen:after {
     content: " ";
     display: block;
@@ -76,10 +79,17 @@ body {
 .result {
   font-size: 7rem;
   text-align: right;
-  padding-top: 2%; }
+  padding-top: 2%;
+  overflow: scroll; }
 
-.wraper {
+.wrapper {
   margin: 0 auto; }
+  @media screen and (min-width: 1024px) {
+    .wrapper {
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 1%;
+      border: 1px solid #0E5163; } }
 
 .controls {
   background-color: #122125;
@@ -121,6 +131,6 @@ body {
 .empty {
   cursor: default; }
 
-.operation {
+.operation:not(.percentage) {
   color: #F2F6F6;
   background-color: #0E5163; }
